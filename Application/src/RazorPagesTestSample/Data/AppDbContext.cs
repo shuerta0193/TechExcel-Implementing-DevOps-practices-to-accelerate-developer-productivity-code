@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 
-//comment for action test
+//comment for action testing
 
 namespace RazorPagesTestSample.Data
 {
