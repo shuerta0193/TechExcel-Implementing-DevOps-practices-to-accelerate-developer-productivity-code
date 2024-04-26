@@ -68,5 +68,49 @@ jobs:
       with:
         app-name: 'tvot6ton34532-dev'
         images: tvot6ton34532mpnpreg.azurecr.io/techboost/dotnetcoreapp:${{ github.run_number }}
+  
+  deploy-test:
+    runs-on: ubuntu-latest
+    needs: dockerbuild
+    permissions:
+      id-token: write
+      contents: read
+      pages: write
+    environment: test
+    steps:
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        enable-AzPSSession: true
+    
+    - uses: Azure/webapps-deploy@v2
+      with:
+        app-name: 'tvot6ton34532-test'
+        images: tvot6ton34532mpnpreg.azurecr.io/techboost/dotnetcoreapp:${{ github.run_number }}
+  
+  deploy-prod:
+    runs-on: ubuntu-latest
+    needs: dockerbuild
+    permissions:
+      id-token: write
+      contents: read
+      pages: write
+    environment: prod
+    steps:
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        enable-AzPSSession: true
+    
+    - uses: Azure/webapps-deploy@v2
+      with:
+        app-name: 'tvot6ton34532-prod'
+        images: tvot6ton34532mpnpreg.azurecr.io/techboost/dotnetcoreapp:${{ github.run_number }}
 
 
